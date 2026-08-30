@@ -1,3 +1,4 @@
+using AiRoleplay.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AiRoleplay.Api.Controllers;
@@ -6,32 +7,27 @@ namespace AiRoleplay.Api.Controllers;
 [Route("api/characters")]
 public class CharactersController : ControllerBase
 {
-    private readonly HttpClient _httpClient;
+    private readonly IAiService _aiService;
 
     public CharactersController(
-        IHttpClientFactory httpClientFactory)
+        IAiService aiService
+    )
     {
-        _httpClient = httpClientFactory.CreateClient();
+        _aiService = aiService;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetCharacters(
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken
+    )
     {
-        var response = await _httpClient.GetAsync(
-            "http://127.0.0.1:8000/characters",
-            cancellationToken
-        );
+        var characters =
+            await _aiService.GetCharactersAsync(
+                cancellationToken
+            );
 
-        response.EnsureSuccessStatusCode();
-
-        var json = await response.Content.ReadAsStringAsync(
-            cancellationToken
-        );
-
-        return Content(
-            json,
-            "application/json"
+        return Ok(
+            characters
         );
     }
 }

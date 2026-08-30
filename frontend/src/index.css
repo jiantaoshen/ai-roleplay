@@ -1,1 +1,224 @@
 @import "tailwindcss";
+
+
+/* ============================================================
+   Theme
+   ============================================================ */
+
+@theme {
+  --color-brand: #18181b;
+  --color-brand-hover: #27272a;
+
+  --color-app: #f4f4f5;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f4f4f5;
+
+  --color-text: #18181b;
+  --color-text-muted: #71717a;
+  --color-text-subtle: #a1a1aa;
+
+  --color-border: #e4e4e7;
+  --color-border-hover: #d4d4d8;
+
+  --color-danger: #dc2626;
+  --color-danger-hover: #ef4444;
+
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+
+/* ============================================================
+   Base
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  scroll-behavior: smooth;
+  background: var(--color-app);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--color-app);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+select {
+  cursor: pointer;
+}
+
+button:disabled,
+select:disabled,
+textarea:disabled {
+  cursor: not-allowed;
+}
+
+::selection {
+  background: var(--color-brand);
+  color: white;
+}
+
+
+/* ============================================================
+   Layout
+   ============================================================ */
+
+.app {
+  @apply min-h-screen bg-app p-4 md:p-6;
+}
+
+.chat-shell {
+  @apply mx-auto flex h-[calc(100vh-2rem)] max-w-3xl flex-col overflow-hidden rounded-2xl bg-surface shadow-xl md:h-[calc(100vh-3rem)];
+}
+
+.page-center {
+  @apply flex min-h-screen items-center justify-center bg-app p-6;
+}
+
+
+/* ============================================================
+   Shared Text
+   ============================================================ */
+
+.state-text {
+  @apply text-sm text-text-muted;
+}
+
+.character-name {
+  @apply truncate text-lg font-semibold text-text;
+}
+
+.character-meta {
+  @apply truncate text-sm text-text-muted;
+}
+
+
+/* ============================================================
+   Error
+   ============================================================ */
+
+.error-card {
+  @apply max-w-md rounded-2xl border border-border bg-surface p-6 text-center shadow-lg;
+}
+
+.error-title {
+  @apply mb-2 text-lg font-semibold text-text;
+}
+
+.error-text {
+  @apply text-sm text-danger;
+}
+
+
+/* ============================================================
+   Character
+   ============================================================ */
+
+.chat-header {
+  @apply flex items-center gap-4 border-b border-border px-5 py-4;
+}
+
+.character-avatar {
+  @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand text-lg font-semibold text-white;
+}
+
+.character-avatar-large {
+  @apply mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-brand text-2xl font-semibold text-white;
+}
+
+.character-select {
+  @apply rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text outline-none transition hover:border-border-hover focus:border-zinc-500 focus:ring-2 focus:ring-zinc-200 disabled:bg-surface-muted disabled:text-text-subtle;
+}
+
+
+/* ============================================================
+   Message Area
+   ============================================================ */
+
+.message-area {
+  @apply flex-1 overflow-y-auto px-4 py-6 md:px-6;
+}
+
+.empty-state {
+  @apply flex h-full items-center justify-center;
+}
+
+.empty-state-content {
+  @apply max-w-md text-center text-text-muted;
+}
+
+.empty-greeting {
+  @apply mt-5 text-base leading-7 text-zinc-700;
+}
+
+.message-bubble {
+  @apply whitespace-pre-wrap break-words rounded-2xl px-4 py-2.5 text-sm leading-6 md:text-base;
+}
+
+.message-user {
+  @apply rounded-br-md bg-brand text-white;
+}
+
+.message-assistant {
+  @apply rounded-bl-md bg-surface-muted text-text;
+}
+
+.regenerate-button {
+  @apply mt-2 text-xs text-text-subtle transition hover:text-text;
+}
+
+
+/* ============================================================
+   Chat Input
+   ============================================================ */
+
+.chat-footer {
+  @apply border-t border-border bg-surface p-4;
+}
+
+.chat-textarea {
+  @apply min-h-12 max-h-32 flex-1 resize-none rounded-xl border border-border bg-surface px-4 py-3 text-sm text-text outline-none transition placeholder:text-text-subtle hover:border-border-hover focus:border-zinc-500 focus:ring-2 focus:ring-zinc-200 disabled:bg-surface-muted;
+}
+
+.chat-footer-meta {
+  @apply mt-2 flex justify-between gap-4 text-xs text-text-subtle;
+}
+
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-medium transition;
+}
+
+.btn-primary {
+  @apply bg-brand text-white hover:bg-brand-hover disabled:opacity-40;
+}
+
+.btn-danger {
+  @apply bg-danger text-white hover:bg-danger-hover;
+}

@@ -2,8 +2,6 @@
 
 一个基于 **React + ASP.NET Core + FastAPI + Ollama** 的 AI 角色扮演聊天项目。
 
-当前目标是先完成 AI 核心体验，再逐步加入数据库、长期记忆、用户系统和部署。
-
 ## Tech Stack
 
 * React + TypeScript
@@ -30,16 +28,16 @@ Ollama
 qwen3:4b
 ```
 
-AI 回复通过 Streaming 原路返回：
+AI 回复通过 Streaming 返回：
 
 ```text
 Ollama
   ↓
-FastAPI StreamingResponse
+FastAPI
   ↓
-ASP.NET Streaming Proxy
+ASP.NET Core
   ↓
-React ReadableStream
+React
 ```
 
 ## 已完成功能
@@ -47,81 +45,83 @@ React ReadableStream
 * 多角色聊天
 * 动态角色加载
 * Character Prompt Builder
-* 多轮对话
+* 多轮上下文
 * Streaming 回复
 * Stop Generation
 * Regenerate
-* 自动滚动
-* Conversation Context
-* 最近 20 条消息窗口
 * Conversation Summary
-* React → ASP.NET Core → FastAPI → Ollama 完整链路
+* 最近 20 条消息上下文
+* Character Quality 调优
+* Frontend 组件拆分
+* Backend Service Layer
+* 一键启动脚本 `dev.ps1`
 
 ## Project Structure
 
 ```text
 ai-roleplay/
 ├── frontend/
-│   └── React + TypeScript + Tailwind
-│
+│   └── React + TypeScript
 ├── backend/
-│   └── ASP.NET Core API
-│
+│   └── ASP.NET Core
 ├── ai/
-│   ├── main.py
-│   ├── character.py
-│   └── prompt_builder.py
-│
+│   └── FastAPI + Ollama
+├── dev.ps1
 └── README.md
 ```
 
+## Character Engine
+
+当前角色配置支持：
+
+```text
+background
+personality
+speaking_style
+scenario
+relationship
+response_rules
+example_dialogues
+```
+
+不同角色已经具备明显不同的语言风格和行为方式。
+
+## Context
+
+长对话会使用：
+
+```text
+Character Prompt
++
+Conversation Summary
++
+Recent 20 Messages
+```
+
+减少上下文长度，同时保留重要历史信息。
+
 ## Local Development
 
-### Ollama
+一键启动：
 
-```bash
-ollama run qwen3:4b
+```powershell
+.\dev.ps1
 ```
 
-### FastAPI
+或者分别启动：
 
 ```bash
+# AI
 cd ai
-uv sync
 uv run uvicorn main:app --reload --port 8000
-```
 
-运行于：
-
-```text
-http://127.0.0.1:8000
-```
-
-### ASP.NET Core
-
-```bash
+# Backend
 cd backend/AiRoleplay.Api
 dotnet watch
-```
 
-运行于：
-
-```text
-http://localhost:5193
-```
-
-### React
-
-```bash
+# Frontend
 cd frontend
-npm install
 npm run dev
-```
-
-运行于：
-
-```text
-http://localhost:5173
 ```
 
 ## Current Phase
@@ -133,38 +133,25 @@ Phase 2 — Streaming             ✅
 Phase 3 — Multi-turn Context    ✅
 Phase 4 — Character Engine      ✅
 Phase 5 — Context & Summary     ✅
+Phase 6 — Character Quality     ✅
+Phase 6.5 — Code Refactor       ✅
 
-Phase 6 — Character Quality     ← Next
-Phase 7 — PostgreSQL
-Phase 8 — Long-term Memory
-Phase 9 — User / Auth
-Phase 10 — Product Features
-Phase 11 — Commercialization
-Phase 12 — Production
+Phase 7 — PostgreSQL            ← Next
 ```
 
-当前已经完成：
+## Current Status
 
-> **AI Roleplay Core MVP**
+**AI Roleplay Core MVP 已完成。**
 
-## Next
+当前还没有数据库，因此刷新页面后聊天记录会丢失。
 
-下一阶段重点提升角色质量，包括：
-
-* Scenario
-* Relationship
-* Example Dialogues
-* Response Rules
-* 更明显的角色人格差异
-
-之后再加入：
+下一阶段计划加入：
 
 ```text
 PostgreSQL
-→ Conversation Persistence
+→ Conversations
+→ Messages
+→ Conversation History
+→ Summary Persistence
 → Long-term Memory
-→ pgvector
-→ User / Auth
-→ Product Features
-→ Deployment
 ```
