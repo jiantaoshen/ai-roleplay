@@ -1,0 +1,79 @@
+# --------------------
+# Logs
+# --------------------
+
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+
+# --------------------
+# Node / React / Vite
+# --------------------
+
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+
+# --------------------
+# Python / FastAPI
+# --------------------
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+.venv/
+venv/
+env/
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+*.egg-info/
+
+
+# --------------------
+# .NET / ASP.NET Core
+# --------------------
+
+bin/
+obj/
+
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+
+# --------------------
+# Environment / Secrets
+# --------------------
+
+.env
+.env.*
+!.env.example
+
+
+# --------------------
+# Editor directories and files
+# --------------------
+
+.vscode/*
+!.vscode/extensions.json
+
+.idea/
+.DS_Store
+
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
